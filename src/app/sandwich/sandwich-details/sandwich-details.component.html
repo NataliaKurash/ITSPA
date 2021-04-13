@@ -1,0 +1,8 @@
+<section *ngIf="sandwichDetails | async as sandwich">
+    <article>
+        <p>{{sandwich.name}}</p>
+        <p>{{sandwich.ingredients.join(', ') }}</p>
+        <p>{{sandwich.sauce}}</p>
+        <p>{{sandwich.price | currency}}</p>
+    </article>
+</section>

@@ -1,0 +1,45 @@
+<h2>Sandiwch builder</h2>
+<form autocomplete="off" novalidate [formGroup]="sandwichForm">
+    <fieldset>
+        <label>
+            Name
+            <input type="text" formControlName="name">
+        </label>
+        <p class="error" *ngIf="showErrors && sandwichForm.get('name').errors?.minlength">Nazwa kanapki jest za krótka</p>
+        <p class="error" *ngIf="showErrors && sandwichForm.get('name').errors?.maxlength">Nazwa kanapki jest za długa</p>
+    </fieldset>
+    <fieldset>
+        <label>
+            Ingredients
+            <ul formGroupName="ingredients">
+                <li *ngFor="let i of sandwichForm.get('ingredients').value | keyvalue">
+                    <input type="checkbox" [formControlName]="i.key" [value]="i.value" >{{i.key}}
+                </li>
+            </ul>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>Sauce
+            <select formControlName="sauce">
+                <option *ngFor="let sauce of sauses" [value]="sauce.value">
+                    {{sauce.label}}
+                </option>
+            </select>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>Vega
+            <input type="radio" [value]="true" formControlName="vege" >Yes
+            <input type="radio" [value]="false"  formControlName="vege">No
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>Price
+            <input type="number" formControlName="price">
+        </label>
+        <p class="error" *ngIf="showErrors && sandwichForm.get('price').errors?.max">Cena kanapki jest zawysoka</p>
+    </fieldset>
+    <fieldset>
+        <button type="button" (click)="save()">Save</button>
+    </fieldset>
+</form>
