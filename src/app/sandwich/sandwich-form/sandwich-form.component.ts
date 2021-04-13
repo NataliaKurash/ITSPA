@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IngredientsService } from '../ingredients.service';
 import { Ingredient, Sauce } from '../sandiwch'
 import { SandwichService } from '../sandwich.service';
 @Component({
@@ -17,16 +18,21 @@ export class SandwichFormComponent implements OnInit {
     { label: 'None sauce', value: Sauce.None },
   ];
 
+  public ingredients =  await this.ingredientsService.getIngredients();
+
   constructor(
     private formBuilder: FormBuilder, 
-    private sandwichServer: SandwichService
+    private sandwichServer: SandwichService,
+    private ingredientsService: IngredientsService,
     ) { }
 
   public ngOnInit(): void {
+    let ingredientsName = [];
+    let ingredient =   Array.from(this.ingredients);
     this.sandwichForm = this.formBuilder.group({
       name: ['', [Validators.minLength(5), Validators.maxLength(20)]],
       ingredients: this.formBuilder.group({
-        [Ingredient.Cheese]: false,
+        [Ingredient.name]: false,
         [Ingredient.Chorizo]: false,
         [Ingredient.Tomato]: false,
         [Ingredient.Ham]: false,
@@ -51,7 +57,7 @@ export class SandwichFormComponent implements OnInit {
       ...formValue,
       ingredients: checkedIngredients
     };
-    console.log(checkedIngredients);
+    // console.log(checkedIngredients);
     this.sandwichServer.postSandwich(sandwich)
       .then(()=> console.log('Kanapka została zapisana'))
       .catch(()=>console.error("Wystapił błąd"));
