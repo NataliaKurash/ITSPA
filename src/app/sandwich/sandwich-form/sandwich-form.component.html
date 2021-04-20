@@ -12,7 +12,7 @@
         <label>
             Ingredients
             <ul formGroupName="ingredients">
-                <li *ngFor="let i of sandwichForm.get('ingredients').value | keyvalue">
+                <li *ngFor="let i of sandwichForm.get('ingredients').value| keyvalue">
                     <input type="checkbox" [formControlName]="i.key" [value]="i.value" >{{i.key}}
                 </li>
             </ul>
