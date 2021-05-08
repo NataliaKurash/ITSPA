@@ -21,4 +21,8 @@ export class SandwichService {
   public getSandwich(sandwichID: string): Promise<Sandwich>{
     return this.httpClient.get<Sandwich>(`${this.url}/${sandwichID}`).toPromise();
   }
+
+  public findSandwiches(query: string, sort: string, order: 'asc' | 'desc'){
+    return this.httpClient.get(`${this.url}?q=${query}&_sort=${sort}&_order${order}`).toPromise();
+  }
 }

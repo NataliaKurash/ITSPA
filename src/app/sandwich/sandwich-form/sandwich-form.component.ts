@@ -20,6 +20,7 @@ export class SandwichFormComponent implements OnInit {
 
   
   public ingredients = this.ingredientsService.getIngredients();
+  
   constructor(
     private formBuilder: FormBuilder, 
     private sandwichServer: SandwichService,
@@ -38,7 +39,7 @@ export class SandwichFormComponent implements OnInit {
     
     this.sandwichForm = this.formBuilder.group({
       name: ['', [Validators.minLength(5), Validators.maxLength(20)]],
-      ingredients: ingredientsList, 
+      ingredients: this.formBuilder.group(ingredientsList), 
       sauce: Sauce.Bbq,
       vege: false,
       price: [0, Validators.max(20)]
@@ -48,6 +49,7 @@ export class SandwichFormComponent implements OnInit {
     return Object.entries(ingredients)
       .filter(ingredient => ingredient[1])
       .map(ingredient => ingredient[0])
+
   }
 
   public save(): void {

@@ -1,0 +1,5 @@
+<section [routerLink]="['/sandwiches', sandwich.id]">
+    <h5>{{sandwich.name}}</h5>
+    <p style="text-align: center; zoom: 2;">{{sandwich.vege ? '🥦': '🥩'}}</p>
+    <p style="text-align: end;"><strong>Price</strong>{{sandwich.price | currency}}</p>
+</section>
