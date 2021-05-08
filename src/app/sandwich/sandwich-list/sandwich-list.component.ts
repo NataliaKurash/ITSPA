@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { SandwichService } from '../sandwich.service';
 
 @Component({
@@ -10,12 +11,16 @@ import { SandwichService } from '../sandwich.service';
 export class SandwichListComponent implements OnInit {
   // @ViewChild('queryInput') public queryInput;
   public searchForm: FormGroup;
-  public sandwiches = this.sandiwchService.getSandwiches();
+  // public sandwiches = this.sandiwchService.getSandwiches();
+  public sandwiches = this.activateRoute.snapshot.data.sandwiches;
 
   constructor(
     private sandiwchService: SandwichService,
-    private formBuilder: FormBuilder
-    ) { }
+    private formBuilder: FormBuilder,
+    private activateRoute: ActivatedRoute
+    ) { 
+      console.log(this.activateRoute.snapshot.data.sandwiches)
+    }
 
   public ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
